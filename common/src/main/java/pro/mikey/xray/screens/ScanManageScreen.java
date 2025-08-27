@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -77,16 +78,16 @@ public class ScanManageScreen extends GuiBase {
         addRenderableWidget(this.search);
 
         // side bar buttons
-        addRenderableWidget(new SupportButtonInner((getWidth() / 2) + 79, getHeight() / 2 - 60, 120, 20, Component.translatable("xray.input.add"), "xray.tooltips.add_block", button -> {
+        addRenderableWidget(new SupportButtonInner((getWidth() / 2) + 79, getHeight() / 2 - 60, 120, 20, new ChatComponentTranslation("xray.input.add"), "xray.tooltips.add_block", button -> {
             minecraft.setScreen(new FindBlockScreen());
         }));
 
-        addRenderableWidget(new SupportButtonInner(getWidth() / 2 + 79, getHeight() / 2 - 38, 120, 20, Component.translatable("xray.input.add_hand"), "xray.tooltips.add_block_in_hand", button -> {
+        addRenderableWidget(new SupportButtonInner(getWidth() / 2 + 79, getHeight() / 2 - 38, 120, 20, new ChatComponentTranslation("xray.input.add_hand"), "xray.tooltips.add_block_in_hand", button -> {
             ItemStack handItem = minecraft.player.getItemInHand(InteractionHand.MAIN_HAND);
 
             // Check if the hand item is a block or not
             if (!(handItem.getItem() instanceof BlockItem)) {
-                minecraft.player.displayClientMessage(Component.literal("[XRay] " + Component.translatable("xray.message.invalid_hand", Utils.safeItemStackName(handItem).getString())), false);
+                minecraft.player.displayClientMessage(Component.literal("[XRay] " + new ChatComponentTranslation("xray.message.invalid_hand", Utils.safeItemStackName(handItem).getString())), false);
                 this.onClose();
                 return;
             }
@@ -94,7 +95,7 @@ public class ScanManageScreen extends GuiBase {
             minecraft.setScreen(new ScanConfigureScreen(((BlockItem) handItem.getItem()).getBlock(), ScanManageScreen::new));
         }));
 
-        addRenderableWidget(new SupportButtonInner(getWidth() / 2 + 79, getHeight() / 2 - 16, 120, 20, Component.translatable("xray.input.add_look"), "xray.tooltips.add_block_looking_at", button -> {
+        addRenderableWidget(new SupportButtonInner(getWidth() / 2 + 79, getHeight() / 2 - 16, 120, 20, new ChatComponentTranslation("xray.input.add_look"), "xray.tooltips.add_block_looking_at", button -> {
             Player player = minecraft.player;
             if (minecraft.level == null || player == null) {
                 return;
@@ -122,18 +123,18 @@ public class ScanManageScreen extends GuiBase {
             }
         }));
 
-        addRenderableWidget(distButtons = new SupportButtonInner((getWidth() / 2) + 79, getHeight() / 2 + 6, 120, 20, Component.translatable("xray.input.show-lava", ScanController.INSTANCE.isLavaActive()), "xray.tooltips.show_lava", button -> {
+        addRenderableWidget(distButtons = new SupportButtonInner((getWidth() / 2) + 79, getHeight() / 2 + 6, 120, 20, new ChatComponentTranslation("xray.input.show-lava", ScanController.INSTANCE.isLavaActive()), "xray.tooltips.show_lava", button -> {
             ScanController.INSTANCE.toggleLava();
-            button.setMessage(Component.translatable("xray.input.show-lava", ScanController.INSTANCE.isLavaActive()));
+            button.setMessage(new ChatComponentTranslation("xray.input.show-lava", ScanController.INSTANCE.isLavaActive()));
         }));
 
-        addRenderableWidget(distButtons = new SupportButtonInner((getWidth() / 2) + 79, getHeight() / 2 + 36, 120, 20, Component.translatable("xray.input.distance", ScanController.INSTANCE.getVisualRadius()), "xray.tooltips.distance", button -> {
+        addRenderableWidget(distButtons = new SupportButtonInner((getWidth() / 2) + 79, getHeight() / 2 + 36, 120, 20, new ChatComponentTranslation("xray.input.distance", ScanController.INSTANCE.getVisualRadius()), "xray.tooltips.distance", button -> {
             ScanController.INSTANCE.incrementCurrentDist();
-            button.setMessage(Component.translatable("xray.input.distance", ScanController.INSTANCE.getVisualRadius()));
+            button.setMessage(new ChatComponentTranslation("xray.input.distance", ScanController.INSTANCE.getVisualRadius()));
         }));
 
         addRenderableWidget(
-            Button.builder(Component.translatable("xray.single.help"), button -> {
+            Button.builder(new ChatComponentTranslation("xray.single.help"), button -> {
                 minecraft.setScreen(new HelpScreen());
             })
                     .pos(getWidth() / 2 + 79, getHeight() / 2 + 58)
@@ -142,7 +143,7 @@ public class ScanManageScreen extends GuiBase {
         );
 
         addRenderableWidget(
-                Button.builder(Component.translatable("xray.single.close"), button -> {
+                Button.builder(new ChatComponentTranslation("xray.single.close"), button -> {
                     this.onClose();
                 })
                         .pos((getWidth() / 2 + 79) + 62, getHeight() / 2 + 58)
@@ -184,7 +185,7 @@ public class ScanManageScreen extends GuiBase {
 
         if (mouse == 1 && distButtons.isMouseOver(x, y)) {
             ScanController.INSTANCE.decrementCurrentDist();
-            distButtons.setMessage(Component.translatable("xray.input.distance", ScanController.INSTANCE.getVisualRadius()));
+            distButtons.setMessage(new ChatComponentTranslation("xray.input.distance", ScanController.INSTANCE.getVisualRadius()));
             distButtons.playDownSound(Minecraft.getInstance().getSoundManager());
         }
 
@@ -201,9 +202,9 @@ public class ScanManageScreen extends GuiBase {
         pose.pushMatrix();
         pose.translate(this.getWidth() / 2f - 140, ((this.getHeight() / 2f) - 3) + 120);
         pose.scale(0.75f, 0.75f);
-        graphics.drawString(this.font, Component.translatable("xray.tooltips.edit1"), 0, 0, Color.GRAY.getRGB());
+        graphics.drawString(this.font, new ChatComponentTranslation("xray.tooltips.edit1"), 0, 0, Color.GRAY.getRGB());
         pose.translate(0, 12);
-        graphics.drawString(this.font, Component.translatable("xray.tooltips.edit2"), 0, 0, Color.GRAY.getRGB());
+        graphics.drawString(this.font, new ChatComponentTranslation("xray.tooltips.edit2"), 0, 0, Color.GRAY.getRGB());
         pose.popMatrix();
     }
 
@@ -215,7 +216,7 @@ public class ScanManageScreen extends GuiBase {
 
     static final class SupportButtonInner extends SupportButton {
         public SupportButtonInner(int widthIn, int heightIn, int width, int height, Component text, String i18nKey, OnPress onPress) {
-            super(widthIn, heightIn, width, height, text, Component.translatable(i18nKey), onPress);
+            super(widthIn, heightIn, width, height, text, new ChatComponentTranslation(i18nKey), onPress);
         }
     }
 

@@ -1,6 +1,8 @@
 package pro.mikey.xray.utils;
 
-import net.minecraft.network.chat.Component;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -9,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * Miscellaneous utility methods for the mod
  */
 public class Utils {
-    public static Component safeItemStackName(ItemStack stack) {
+    public static IChatComponent safeItemStackName(ItemStack stack) {
         try {
             @Nullable var hoverName = stack.getHoverName();
             if (hoverName != null) {
@@ -21,9 +23,9 @@ public class Utils {
                 return displayName;
             }
 
-            return Component.translatable(stack.getItem().getDescriptionId());
+            return new ChatComponentTranslation(stack.getItem().getDescriptionId());
         } catch (Exception e) {
-            return Component.literal("Unknown...");
+            return new ChatComponentText("Unknown...");
         }
     }
 }

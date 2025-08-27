@@ -9,6 +9,7 @@ import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.Layout;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -80,11 +81,11 @@ public class ScanConfigureScreen extends GuiBase {
                 .size(20, 20)
                 .build());
 
-        rowHelper.addChild(Button.builder(Component.translatable("xray.single.cancel"), b -> Minecraft.getInstance().setScreen(this.previousScreenCallback.get()))
+        rowHelper.addChild(Button.builder(new ChatComponentTranslation("xray.single.cancel"), b -> Minecraft.getInstance().setScreen(this.previousScreenCallback.get()))
                 .size(60, 20)
                 .build());
 
-        rowHelper.addChild(Button.builder(Component.translatable(editingType != null ? "xray.title.edit" : "xray.single.add"), b -> {
+        rowHelper.addChild(Button.builder(new ChatComponentTranslation(editingType != null ? "xray.title.edit" : "xray.single.add"), b -> {
                             if (editingType != null) {
                                 editBlock();
                             } else {

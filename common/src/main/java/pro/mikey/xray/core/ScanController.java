@@ -2,7 +2,7 @@ package pro.mikey.xray.core;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -78,11 +78,11 @@ public enum ScanController {
             requestBlockFinder(true); // finally, force a refresh
 
             if (!XRay.config().showOverlay.get() && Minecraft.getInstance().player != null)
-                Minecraft.getInstance().player.displayClientMessage(Component.translatable("xray.toggle.activated"), false);
+                Minecraft.getInstance().player.displayClientMessage(new ChatComponentTranslation("xray.toggle.activated"), false);
         } else // disable drawing
         {
             if (!XRay.config().showOverlay.get() && Minecraft.getInstance().player != null)
-                Minecraft.getInstance().player.displayClientMessage(Component.translatable("xray.toggle.deactivated"), false);
+                Minecraft.getInstance().player.displayClientMessage(new ChatComponentTranslation("xray.toggle.deactivated"), false);
 
             xrayActive = false;
         }
