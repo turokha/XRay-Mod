@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-1.4.0'
+    }
+}
+
+apply plugin: 'forge'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+minecraft {
+    version = "1.7.10-${project.forge1710_version}"
+    runDir = 'run'
+}
+
+dependencies {
+    compile project(':common')
+}
+
