@@ -1,12 +1,13 @@
 package pro.mikey.xray;
 
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.glfw.GLFW;
+import org.lwjgl.input.Keyboard;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import pro.mikey.xray.screens.ScanManageScreen;
 import pro.mikey.xray.utils.XPlatShim;
 import pro.mikey.xray.core.ScanController;
@@ -19,13 +20,15 @@ public enum XRay {
 	public static final String MOD_ID = "xray";
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	public static final XPlatShim XPLAT = ServiceLoader.load(XPlatShim.class).findFirst().orElseThrow();
+        public static final XPlatShim XPLAT = ServiceLoader.load(XPlatShim.class).findFirst().orElseThrow();
 
-	public static final KeyMapping TOGGLE_KEY = new KeyMapping(I18n.get("xray.config.toggle"), GLFW.GLFW_KEY_BACKSLASH, "xray.mod_name");
-	public static final KeyMapping OPEN_GUI_KEY = new KeyMapping(I18n.get("xray.config.open"), GLFW.GLFW_KEY_G, "xray.mod_name");
+        public static final KeyBinding TOGGLE_KEY = new KeyBinding(I18n.get("xray.config.toggle"), Keyboard.KEY_BACKSLASH, "xray.mod_name");
+        public static final KeyBinding OPEN_GUI_KEY = new KeyBinding(I18n.get("xray.config.open"), Keyboard.KEY_G, "xray.mod_name");
 
-	public void init() {
-	}
+        public void init() {
+                ClientRegistry.registerKeyBinding(TOGGLE_KEY);
+                ClientRegistry.registerKeyBinding(OPEN_GUI_KEY);
+        }
 
 	public void onToggleKeyPressed() {
 		if (minecraftNotReady()) {

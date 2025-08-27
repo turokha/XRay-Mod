@@ -8,6 +8,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +37,7 @@ public class FindBlockScreen extends GuiBase {
         search.setFocused(true);
         this.setFocused(search);
 
-        addRenderableWidget(Button.builder(Component.translatable("xray.single.cancel"), b -> Minecraft.getInstance().setScreen(new ScanManageScreen()))
+        addRenderableWidget(Button.builder(new ChatComponentTranslation("xray.single.cancel"), b -> Minecraft.getInstance().setScreen(new ScanManageScreen()))
                 .pos(getWidth() / 2 + 43, getHeight() / 2 + 84)
                 .size(60, 20)
                 .build());
